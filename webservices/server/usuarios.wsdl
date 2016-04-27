@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<definitions xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="urn:usuarios" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="urn:usuarios">
+<types>
+<xsd:schema targetNamespace="urn:usuarios">
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+</xsd:schema>
+</types>
+<message name="fnGenericaRequest">
+  <part name="idUsuario" type="xsd:string"/>
+  <part name="nombre" type="xsd:string"/>
+  <part name="usuario" type="xsd:string"/>
+  <part name="clave" type="xsd:string"/>
+  <part name="reclave" type="xsd:string"/>
+  <part name="extension" type="xsd:string"/>
+  <part name="tipoUsuario" type="xsd:string"/>
+  <part name="idCliente" type="xsd:string"/>
+  <part name="accion" type="xsd:string"/>
+  <part name="hashValidate" type="xsd:string"/></message>
+<message name="fnGenericaResponse">
+  <part name="return" type="xsd:string"/></message>
+<portType name="usuariosPortType">
+  <operation name="fnGenerica">
+    <documentation>Nos permite crear, editar o eliminar un usuario en el sistema.</documentation>
+    <input message="tns:fnGenericaRequest"/>
+    <output message="tns:fnGenericaResponse"/>
+  </operation>
+</portType>
+<binding name="usuariosBinding" type="tns:usuariosPortType">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="fnGenerica">
+    <soap:operation soapAction="urn:usuarios#fnGenerica" style="rpc"/>
+    <input><soap:body use="encoded" namespace="urn:usuarios" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="urn:usuarios" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="usuarios">
+  <port name="usuariosPort" binding="tns:usuariosBinding">
+    <soap:address location="http://localhost/r1i2n3g4Central/webservices/server/usuarios.php"/>
+  </port>
+</service>
+</definitions>
